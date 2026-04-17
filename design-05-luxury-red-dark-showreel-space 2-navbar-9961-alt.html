@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M87 Talent Qatar - Showreel Space Edition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #1a1a20;
+            --bg-tertiary: #2a2a30;
+            --text-primary: #ffffff;
+            --text-secondary: #d4d4d4;
+            --accent: #dc2626;
+            --accent-light: #ef4444;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+                /* Loading Screen */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 15, 20, 0.42);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(16px) saturate(120%);
+            -webkit-backdrop-filter: blur(16px) saturate(120%);
+            transition: opacity 1.2s ease, visibility 1.2s ease;
+            isolation: isolate;
+        }
+
+        #loader::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.32) 0%, rgba(0, 0, 0, 0.18) 100%);
+            pointer-events: none;
+        }
+
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-wrapper {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .loader-logo {
+            width: 120px;
+            margin: 0 auto;
+        }
+
+        .loader-logo img {
+            width: 100%;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 35px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: all 0.4s ease;
+            background: rgba(45, 45, 45, 0.6);
+            backdrop-filter: blur(8px);
+        }
+
+        nav.scrolled {
+            background: rgba(45, 45, 45, 0.75);
+            backdrop-filter: blur(12px);
+            padding: 35px 80px;
+        }
+
+        .nav-logo {
+            width: 45px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .nav-logo::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 55px;
+            height: 55px;
+            background: radial-gradient(circle, rgba(220, 38, 38, 0.4) 0%, rgba(220, 38, 38, 0.08) 50%, transparent 70%);
+            filter: blur(8px);
+            z-index: 1;
+            animation: redFireGlow 3s ease-in-out infinite alternate;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        @keyframes redFireGlow {
+            0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.95); }
+            100% { opacity: 0.9; transform: translate(-50%, -50%) scale(1.02); }
+        }
+
+        .nav-logo img {
+            width: 100%;
+            position: relative;
+            z-index: 3;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+
+        .nav-menu a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-menu .btn-apply {
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .nav-menu .btn-apply:hover {
+            color: #ef4444;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 80px 80px;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .showreel-background {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .showreel-background video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            object-position: center center;
+        }
+
+        .showreel-background::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10, 10, 15, 0.45) 0%, rgba(10, 10, 15, 0.8) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .showreel-background .showreel-placeholder {
+            cursor: default;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+        }
+
+        .hero-ornament {
+            font-size: 0.6rem;
+            letter-spacing: 10px;
+            color: var(--accent);
+            margin-bottom: 40px;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(4rem, 12vw, 10rem);
+            font-weight: 300;
+            line-height: 0.9;
+            letter-spacing: 5px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 40px rgba(220, 38, 38, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 50px;
+        }
+
+        .hero-divider {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent), transparent);
+            margin: 0 auto;
+        }
+
+        .hero-play-hint {
+            margin-top: 60px;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .hero-play-hint::before {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background: var(--accent);
+        }
+
+        /* Sections */
+        .section {
+            padding: 160px 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 100px;
+        }
+
+        .section-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.8rem;
+            letter-spacing: 5px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            letter-spacing: 3px;
+            line-height: 1.3;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 120px;
+            align-items: center;
+        }
+
+        .about-text {
+            padding-right: 60px;
+        }
+
+        .about-text p {
+            font-size: 1rem;
+            line-height: 2;
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        .about-visual {
+            position: relative;
+        }
+
+        .about-frame {
+            aspect-ratio: 4/5;
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .about-frame::before {
+            content: 'M87';
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 5rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.03);
+            letter-spacing: 10px;
+        }
+
+        .about-logo {
+            width: 100px;
+        }
+
+        .about-logo img {
+            width: 100%;
+        }
+
+        .m87-story {
+            background: var(--bg-secondary);
+            text-align: center;
+        }
+
+        .m87-story-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .story-accent {
+            font-size: 0.7rem;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 40px;
+        }
+
+        .story-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+            font-weight: 400;
+            line-height: 1.8;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .about-highlights {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 80px;
+        }
+
+        .about-highlight-item {
+            text-align: center;
+            padding: 40px 20px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.4s ease;
+        }
+
+        .about-highlight-item:hover {
+            border-color: rgba(220, 38, 38, 0.3);
+            transform: translateY(-10px);
+        }
+
+        .highlight-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--accent);
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .highlight-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+
+        .highlight-desc {
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        /* Why Join Section */
+        .whyjoin-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 80px;
+        }
+
+        .whyjoin-intro p {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 30px;
+        }
+
+        .reason-card {
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 40px 25px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reason-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .reason-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(220, 38, 38, 0.3);
+        }
+
+        .reason-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .reason-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--accent);
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+            opacity: 0.4;
+        }
+
+        .reason-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+
+        .reason-desc {
+            font-size: 0.8rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        /* Services Section */
+        .services-section {
+            background: var(--bg-secondary);
+        }
+
+        .services-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-row {
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            gap: 80px;
+            align-items: center;
+            padding: 50px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            transition: all 0.4s ease;
+        }
+
+        .service-row:hover {
+            padding-left: 30px;
+        }
+
+        .service-row:hover .service-name {
+            color: var(--accent-light);
+        }
+
+        .service-symbol {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .service-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            transition: color 0.4s ease;
+        }
+
+        .service-line {
+            width: 60px;
+            height: 1px;
+            background: rgba(255,255,255,0.1);
+            transition: width 0.4s ease, background 0.4s ease;
+        }
+
+        .service-row:hover .service-line {
+            width: 100px;
+            background: var(--accent);
+        }
+
+        /* Portfolio Section */
+        .portfolio-section {
+            position: relative;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .portfolio-piece {
+            aspect-ratio: 3/4;
+            background: var(--bg-tertiary);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .portfolio-piece::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px;
+            background: linear-gradient(to top, rgba(9,9,9,0.95), transparent);
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+            z-index: 3;
+        }
+
+        .portfolio-piece:hover .portfolio-overlay {
+            transform: translateY(0);
+        }
+
+        .portfolio-cat {
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .portfolio-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: var(--text-primary);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-ornament {
+            font-size: 0.6rem;
+            letter-spacing: 10px;
+            color: var(--accent);
+            margin-bottom: 30px;
+        }
+
+        .cta-heading {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 400;
+            letter-spacing: 5px;
+            line-height: 1.2;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+        }
+
+        .cta-desc {
+            font-size: 1rem;
+            line-height: 2;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            font-weight: 300;
+        }
+
+        .btn-luxury {
+            display: inline-block;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 6px;
+            transition: color 0.4s ease;
+        }
+
+        .btn-luxury::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+
+        .btn-luxury:hover {
+            color: var(--accent-light);
+        }
+
+        .btn-luxury:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* Contact Section */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 150px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        .contact-block h4 {
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .contact-block p {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        .contact-block a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-block a:hover {
+            color: var(--accent-light);
+        }
+
+        .contact-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-logo-large {
+            width: 150px;
+            opacity: 0.3;
+        }
+
+        .contact-logo-large img {
+            width: 100%;
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 80px 50px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 80px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-logo {
+            width: 50px;
+        }
+
+        .footer-logo img {
+            width: 100%;
+        }
+
+        .footer-tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px 60px;
+        }
+
+        .footer-links-column h4 {
+            font-size: 0.65rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .footer-links-column ul {
+            list-style: none;
+        }
+
+        .footer-links-column li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links-column a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links-column a:hover {
+            color: var(--accent-light);
+        }
+
+        .footer-social {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .footer-social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .footer-social-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .footer-social-links a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .footer-copy {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 30px;
+        }
+
+        .footer-legal a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-legal a:hover {
+            color: var(--accent);
+        }
+
+        /* Scroll Animations */
+        .elegant-reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .elegant-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .reasons-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .reason-card:nth-child(4),
+            .reason-card:nth-child(5) {
+                grid-column: span 1;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 80px;
+            }
+
+            .about-text {
+                padding-right: 0;
+            }
+
+            .about-highlights {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-layout {
+                grid-template-columns: 1fr;
+                gap: 80px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .footer-links {
+                grid-template-columns: 1fr;
+            }
+
+            .reasons-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .reason-card:nth-child(5) {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px 30px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .section {
+                padding: 100px 30px;
+            }
+
+            .hero {
+                padding: 100px 30px 60px;
+            }
+
+            .service-row {
+                grid-template-columns: 60px 1fr;
+                gap: 30px;
+            }
+
+            .service-line {
+                display: none;
+            }
+
+            .reasons-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reason-card:nth-child(5) {
+                grid-column: span 1;
+            }
+
+            footer {
+                padding: 50px 30px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+    
+
+        /* Unified Navbar Theme */
+        nav {
+            padding: 20px 56px !important;
+            min-height: 78px;
+            isolation: isolate;
+            overflow: hidden;
+        }
+
+        nav.scrolled {
+            padding: 20px 56px !important;
+        }
+
+        nav::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(180deg, rgba(2, 4, 8, 0.52) 0%, rgba(2, 4, 8, 0.68) 100%),
+                url('IMG_9961.PNG');
+            background-size: cover, cover;
+            background-position: center center, center center;
+            background-repeat: no-repeat;
+            background-blend-mode: normal, screen;
+            opacity: 0.84;
+            filter: saturate(1.05) contrast(1.02);
+        }
+
+        nav::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background-image:
+                radial-gradient(circle at 12% 28%, rgba(255, 255, 255, 0.8) 0 1px, transparent 1.2px),
+                radial-gradient(circle at 34% 62%, rgba(255, 255, 255, 0.72) 0 1px, transparent 1.2px),
+                radial-gradient(circle at 68% 24%, rgba(255, 255, 255, 0.78) 0 1px, transparent 1.2px),
+                radial-gradient(circle at 86% 56%, rgba(255, 255, 255, 0.7) 0 1px, transparent 1.2px),
+                radial-gradient(circle at 22% 44%, rgba(0, 0, 0, 0.35) 0 1px, transparent 1.2px),
+                radial-gradient(circle at 74% 72%, rgba(0, 0, 0, 0.3) 0 1px, transparent 1.2px);
+            background-size: 200px 200px, 260px 260px, 230px 230px, 280px 280px, 300px 300px, 320px 320px;
+            opacity: 0.32;
+        }
+
+        nav > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 14px 24px !important;
+                min-height: 62px;
+            }
+
+            nav.scrolled {
+                padding: 14px 24px !important;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="loader-wrapper">
+            <div class="loader-logo">
+                <img src="Primary logo Red.png" alt="M87">
+            </div>
+        </div>
+    </div>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-logo">
+            <img src="Primary logo Red.png" alt="M87">
+        </div>
+        <ul class="nav-menu">
+            <li><a href="#about">About Us</a></li>
+            <li><a href="design-05-luxury-red-dark-application.html" class="btn-apply">Become A Talent</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="showreel-background">
+            <video autoplay muted loop playsinline preload="metadata" poster="IMG_9957.PNG" aria-label="M87 Showreel background"><source src="M87 Showreel.mp4" type="video/mp4"></video><div class="hero-stars"></div>
+        </div>
+        <div class="hero-content">
+            <p class="hero-ornament">✦ ✦ ✦</p>
+            <h1 class="hero-title">M87</h1>
+            <p class="hero-subtitle">Don't Fit In, Stand Out</p>
+            <div class="hero-divider"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="section-header elegant-reveal">
+            <p class="section-number">I</p>
+            <h2 class="section-title">About Us</h2>
+        </div>
+        <div class="about-content elegant-reveal">
+            <div class="about-text">
+                <p>
+                    M87 Talent Qatar is the premier talent management agency dedicated to discovering, nurturing, and launching extraordinary talent into the global entertainment industry. We embody excellence in talent representation, production services, and exclusive events that shape careers and create stars.
+                </p>
+                <p>
+                    Our philosophy is simple yet powerful: we don't seek those who fit in—we seek those who dare to be extraordinary. With a commitment to personalized management and unmatched global reach, M87 connects Qatar's finest talent with the world's most prestigious opportunities, transforming aspirations into remarkable careers.
+                </p>
+                <p>
+                    From talent discovery and career development to production excellence and exclusive events, we provide comprehensive support that empowers our talent to shine on the world stage.
+                </p>
+            </div>
+            <div class="about-visual">
+                <div class="about-frame">
+                    <div class="about-logo">
+                        <img src="Primary logo Red.png" alt="M87">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="about-highlights elegant-reveal">
+            <div class="about-highlight-item">
+                <p class="highlight-number">01</p>
+                <h3 class="highlight-title">Talent Discovery</h3>
+                <p class="highlight-desc">Identifying extraordinary individuals with unique potential and star quality</p>
+            </div>
+            <div class="about-highlight-item">
+                <p class="highlight-number">02</p>
+                <h3 class="highlight-title">Career Development</h3>
+                <p class="highlight-desc">Personalized guidance, training, and strategic career planning</p>
+            </div>
+            <div class="about-highlight-item">
+                <p class="highlight-number">03</p>
+                <h3 class="highlight-title">Global Opportunities</h3>
+                <p class="highlight-desc">Connecting talent with prestigious international platforms</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section m87-story">
+        <div class="section-header elegant-reveal">
+            <p class="story-accent">The Story Behind The Name</p>
+        </div>
+        <div class="m87-story-content elegant-reveal">
+            <p class="story-text">
+                M87 is more than a name it's a statement of scale, gravity, and ambition.
+            </p>
+            <p class="story-text">
+                Inspired by the Messier 87 galaxy, one of the most powerful and luminous galaxies known, M87 represents a system where everything is drawn toward excellence. At its center lies a force so strong it shapes everything around it just as true talent has the power to influence, inspire, and redefine its space.
+            </p>
+            <p class="story-text">
+                Like the stars within M87, every individual we work with carries their own energy, identity, and potential. Alone, they shine. Together, they form something far greater a constellation of talent that moves with purpose and impact.
+            </p>
+            <p class="story-text">
+                M87 is built on that idea: bringing exceptional people into one orbit, amplifying their presence, and positioning them where they can be seen, felt, and remembered.
+            </p>
+            <p class="story-text" style="color: var(--accent); font-style: italic;">
+                This isn't just a name. It's a universe of talent.
+            </p>
+        </div>
+    </section>
+
+    <!-- Why Join Section -->
+    <section class="section" id="whyjoin">
+        <div class="section-header elegant-reveal">
+            <p class="section-number">II</p>
+            <h2 class="section-title">Why Join M87</h2>
+        </div>
+        <div class="whyjoin-intro elegant-reveal">
+            <p>
+                M87 Talent Qatar is the leading talent agency, specializing in discovering and nurturing talent for the entertainment industry. Our comprehensive approach ensures that every artist receives the guidance, resources, and opportunities they need to thrive.
+            </p>
+        </div>
+        <div class="reasons-grid elegant-reveal">
+            <div class="reason-card">
+                <p class="reason-number">01</p>
+                <h3 class="reason-title">Global Reach</h3>
+                <p class="reason-desc">Access to international opportunities and worldwide industry connections</p>
+            </div>
+            <div class="reason-card">
+                <p class="reason-number">02</p>
+                <h3 class="reason-title">Expert Guidance</h3>
+                <p class="reason-desc">Personalized mentorship from industry professionals with decades of experience</p>
+            </div>
+            <div class="reason-card">
+                <p class="reason-number">03</p>
+                <h3 class="reason-title">Premier Production</h3>
+                <p class="reason-desc">State-of-the-art production facilities and top-tier creative teams</p>
+            </div>
+            <div class="reason-card">
+                <p class="reason-number">04</p>
+                <h3 class="reason-title">Exclusive Events</h3>
+                <p class="reason-desc">Invitation-only showcases and networking with industry leaders</p>
+            </div>
+            <div class="reason-card">
+                <p class="reason-number">05</p>
+                <h3 class="reason-title">Career Growth</h3>
+                <p class="reason-desc">Strategic career planning and long-term success development</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section services-section" id="services">
+        <div class="section-header elegant-reveal">
+            <p class="section-number">III</p>
+            <h2 class="section-title">Services</h2>
+        </div>
+        <div class="services-list elegant-reveal">
+            <div class="service-row">
+                <span class="service-symbol">★</span>
+                <span class="service-name">Talent Representation</span>
+                <span class="service-line"></span>
+            </div>
+            <div class="service-row">
+                <span class="service-symbol">◈</span>
+                <span class="service-name">Production Services</span>
+                <span class="service-line"></span>
+            </div>
+            <div class="service-row">
+                <span class="service-symbol">◆</span>
+                <span class="service-name">Events & Experiences</span>
+                <span class="service-line"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="section portfolio-section" id="portfolio">
+        <div class="section-header elegant-reveal">
+            <p class="section-number">IV</p>
+            <h2 class="section-title">Portfolio</h2>
+        </div>
+        <div class="portfolio-grid elegant-reveal">
+            <a href="design-05-luxury-red-dark-portfolio.html" class="portfolio-piece">
+                <div class="portfolio-overlay">
+                    <p class="portfolio-cat">Production</p>
+                    <h3 class="portfolio-title">Cinematic Vision</h3>
+                </div>
+            </a>
+            <a href="design-05-luxury-red-dark-portfolio.html" class="portfolio-piece">
+                <div class="portfolio-overlay">
+                    <p class="portfolio-cat">Event</p>
+                    <h3 class="portfolio-title">Gala Excellence</h3>
+                </div>
+            </a>
+            <a href="design-05-luxury-red-dark-portfolio.html" class="portfolio-piece">
+                <div class="portfolio-overlay">
+                    <p class="portfolio-cat">Talent</p>
+                    <h3 class="portfolio-title">Star Rising</h3>
+                </div>
+            </a>
+            <a href="design-05-luxury-red-dark-portfolio.html" class="portfolio-piece">
+                <div class="portfolio-overlay">
+                    <p class="portfolio-cat">Production</p>
+                    <h3 class="portfolio-title">Visual Mastery</h3>
+                </div>
+            </a>
+        </div>
+        <div class="elegant-reveal" style="text-align: center;">
+            <a href="design-05-luxury-red-dark-portfolio.html" class="btn-luxury">View Full Portfolio</a>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta-section" id="cta">
+        <div class="cta-content elegant-reveal">
+            <p class="cta-ornament">✦ ✦ ✦</p>
+            <h2 class="cta-heading">DON'T FIT IN, STAND OUT</h2>
+            <p class="cta-desc">
+                Take the first step towards an extraordinary career. M87 seeks individuals who don't just aspire to greatness—they embody it. Join our roster of exceptional talent and let us help you shine on the world stage.
+            </p>
+            <a href="design-05-luxury-red-dark-application.html" class="btn-luxury">Become A Talent</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="contact-layout elegant-reveal">
+            <div>
+                <div class="section-header">
+                    <p class="section-number">V</p>
+                    <h2 class="section-title">Contact Us</h2>
+                </div>
+                <div class="contact-info">
+                    <div class="contact-block">
+                        <h4>Email</h4>
+                        <p><a href="mailto:info@m87.com">info@m87.com</a></p>
+                    </div>
+                    <div class="contact-block">
+                        <h4>Instagram</h4>
+                        <p><a href="https://instagram.com/m87talentqatar">@m87talentqatar</a></p>
+                    </div>
+                    <div class="contact-block">
+                        <h4>YouTube</h4>
+                        <p><a href="https://youtube.com/@sayfarhani">@sayfarhani</a></p>
+                    </div>
+                    <div class="contact-block">
+                        <h4>Location</h4>
+                        <p>Doha, Qatar</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-visual">
+                <div class="contact-logo-large">
+                    <img src="Primary logo Red.png" alt="M87">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="Primary logo Red.png" alt="M87">
+                </div>
+                <p class="footer-tagline">Don't Fit In, Stand Out</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-links-column">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#whyjoin">Why Join M87</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links-column">
+                    <h4>Talent</h4>
+                    <ul>
+                        <li><a href="#cta">Become A Talent</a></li>
+                        <li><a href="design-05-luxury-red-dark-application.html">Application</a></li>
+                        <li><a href="design-05-luxury-red-dark-portfolio.html">Portfolio</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-social">
+                <div class="footer-social-links">
+                    <a href="https://instagram.com/m87talentqatar">Instagram</a>
+                    <a href="https://youtube.com/@sayfarhani">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copy">© 2026 M87 Talent Qatar</p>
+            <div class="footer-legal">
+                <a href="#">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 2000);
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 80) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Elegant reveal on scroll
+        const revealElements = document.querySelectorAll('.elegant-reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.15 });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+    </script>
+<script>
+/* LOADER_FAILSAFE */
+(function(){
+  function hideLoader(){
+    var el=document.getElementById('loader');
+    if(el){el.classList.add('hidden');}
+  }
+  if(document.readyState==='complete'){
+    setTimeout(hideLoader, 600);
+  }
+  window.addEventListener('load', function(){ setTimeout(hideLoader, 1200); });
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(hideLoader, 2600); });
+  setTimeout(hideLoader, 5000);
+})();
+</script>
+</body>
+</html>

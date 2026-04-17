@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(for:*)",
+      "Bash(do sed:*)",
+      "Bash(done)",
+      "Bash(ls:*)",
+      "Bash(grep:*)"
+    ]
+  }
+}

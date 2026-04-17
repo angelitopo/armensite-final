@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Become A Talent - M87 Talent Qatar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #fef9c3;
+            --bg-tertiary: #fef08a;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --accent: #eab308;
+            --accent-light: #facc15;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* Loading Screen */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1.2s ease, visibility 1.2s ease;
+        }
+
+        #loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-wrapper {
+            text-align: center;
+            position: relative;
+        }
+
+        .loader-logo-frame {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 50px;
+            position: relative;
+            border: 1px solid rgba(201,169,98,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .loader-logo-frame::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(201,169,98,0.15);
+        }
+
+        .loader-logo-frame::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1px;
+            height: 80%;
+            background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+        }
+
+        .loader-logo {
+            width: 80px;
+            position: relative;
+            z-index: 2;
+            animation: elegantPulse 2s ease-in-out infinite;
+        }
+
+        .loader-logo img {
+            width: 100%;
+        }
+
+        @keyframes elegantPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        .loader-corners {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+
+        .corner {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-color: var(--accent);
+            border-style: solid;
+        }
+
+        .corner-tl { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+        .corner-tr { top: -1px; right: -1px; border-width: 1px 1px 0 0; }
+        .corner-bl { bottom: -1px; left: -1px; border-width: 0 0 1px 1px; }
+        .corner-br { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+
+        .loader-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+
+        .loader-subtitle {
+            font-size: 0.7rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .loader-logo-frame {
+            width: auto;
+            height: auto;
+            margin: 0 auto;
+            border: none;
+            display: block;
+        }
+
+        .loader-logo-frame::before,
+        .loader-logo-frame::after,
+        .loader-corners {
+            display: none;
+        }
+
+        .loader-logo {
+            width: 120px;
+            margin: 0 auto;
+        }
+
+        .loader-title,
+        .loader-subtitle {
+            display: none;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 35px 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {  
+            
+            
+            padding: 35px 80px;
+            
+        }
+
+        .nav-logo {
+            width: 45px;
+        }
+
+        .nav-logo img {
+            width: 100%;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.4s ease;
+        }
+
+        .nav-menu a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .nav-menu .btn-apply {
+            color: var(--accent);
+        }
+
+        .nav-menu .btn-apply:hover {
+            color: var(--accent-light);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 120px 80px 80px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201,169,98,0.03) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-ornament {
+            font-size: 0.6rem;
+            letter-spacing: 10px;
+            color: var(--accent);
+            margin-bottom: 40px;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 300;
+            line-height: 1;
+            letter-spacing: 5px;
+            margin-bottom: 30px;
+        }
+
+        .hero-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 300;
+            letter-spacing: 8px;
+            color: var(--accent-light);
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .hero-divider {
+            width: 80px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent), transparent);
+            margin: 0 auto;
+        }
+
+        /* Application Form */
+        .application-section {
+            padding: 80px 80px 160px;
+            position: relative;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-intro {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .form-intro p {
+            font-size: 1rem;
+            line-height: 2;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .form-section {
+            margin-bottom: 50px;
+        }
+
+        .form-section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            color: var(--accent);
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(201,169,98,0.2);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 18px 20px;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--text-primary);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 1px rgba(201,169,98,0.1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .form-group select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23c9a962' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+            padding-right: 45px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+            line-height: 1.8;
+        }
+
+        .upload-section {
+            margin-top: 20px;
+        }
+
+        .upload-instruction {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .upload-guidance {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(201,169,98,0.05);
+            border: 1px solid rgba(201,169,98,0.2);
+            margin-bottom: 25px;
+        }
+
+        .upload-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .upload-guidance-text {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-input-button {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background: var(--bg-tertiary);
+            border: 2px dashed rgba(255,255,255,0.2);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .file-input-wrapper:hover .file-input-button {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .file-input-button::before {
+            content: '✦';
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .preview-area {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .preview-item {
+            position: relative;
+            aspect-ratio: 1;
+            background: var(--bg-tertiary);
+            border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-remove {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 28px;
+            height: 28px;
+            background: rgba(201,169,98,0.9);
+            border: none;
+            border-radius: 50%;
+            color: var(--bg-primary);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .preview-remove:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .image-count {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .image-count.warning {
+            color: var(--accent);
+        }
+
+        .upload-section {
+            margin-top: 20px;
+        }
+
+        .upload-instruction {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .upload-guidance {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            padding: 20px;
+            background: rgba(201,169,98,0.05);
+            border: 1px solid rgba(201,169,98,0.2);
+            margin-bottom: 25px;
+        }
+
+        .upload-icon {
+            font-size: 1.5rem;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .upload-guidance-text {
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-input-button {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border: 2px dashed rgba(255,255,255,0.2);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .file-input-wrapper:hover .file-input-button {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .file-input-button::before {
+            content: '✦';
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .image-count {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 15px;
+        }
+
+        .image-count.warning {
+            color: var(--accent);
+        }
+
+        .preview-area {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .preview-item {
+            position: relative;
+            aspect-ratio: 1;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-remove {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 28px;
+            height: 28px;
+            background: rgba(201,169,98,0.9);
+            border: none;
+            border-radius: 50%;
+            color: var(--bg-primary);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .preview-remove:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+
+        .form-group.error input,
+        .form-group.error select,
+        .form-group.error textarea {
+            border-color: #ff4a4a;
+        }
+
+        .form-group.error label {
+            color: #ff4a4a;
+        }
+
+        .error-message {
+            display: none;
+            font-size: 0.7rem;
+            color: #ff4a4a;
+            margin-top: 8px;
+            letter-spacing: 1px;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin: 0;
+            cursor: pointer;
+            appearance: none;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(255,255,255,0.2);
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .checkbox-group input[type="checkbox"]:checked {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .checkbox-group input[type="checkbox"]:checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--bg-primary);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .checkbox-group label {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            font-weight: 300;
+            cursor: pointer;
+        }
+
+        .checkbox-group label a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .checkbox-group label a:hover {
+            color: var(--accent-light);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 22px 60px;
+            border: 1px solid var(--accent);
+            background: transparent;
+            color: var(--accent);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn-submit:hover {
+            color: var(--bg-primary);
+        }
+
+        .btn-submit:hover::before {
+            width: 100%;
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 80px 40px;
+            background: var(--bg-secondary);
+            border: 1px solid rgba(201,169,98,0.2);
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .success-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            letter-spacing: 3px;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+
+        .success-text {
+            font-size: 1rem;
+            line-height: 2;
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin-bottom: 40px;
+        }
+
+        .btn-back {
+            display: inline-block;
+            padding: 18px 45px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+        }
+
+        .btn-back:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 80px;
+            background: rgba(18,18,18,0.98);
+            
+            border-top: 1px solid rgba(255,255,255,0.08);
+            z-index: 1000;
+            transform: translateY(100%);
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .cookie-banner.show {
+            transform: translateY(0);
+        }
+
+        .cookie-banner.hide {
+            transform: translateY(100%);
+        }
+
+        .cookie-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .cookie-text {
+            flex: 1;
+        }
+
+        .cookie-text h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .cookie-text p {
+            font-size: 0.85rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .cookie-actions {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn-cookie {
+            padding: 15px 35px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            border: none;
+        }
+
+        .btn-cookie-accept {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border: 1px solid var(--accent);
+        }
+
+        .btn-cookie-accept:hover {
+            background: var(--accent-light);
+            border-color: var(--accent-light);
+        }
+
+        .btn-cookie-decline {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .btn-cookie-decline:hover {
+            color: var(--text-primary);
+            border-color: var(--text-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px 30px;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .hero {
+                padding: 100px 30px 60px;
+            }
+
+            .application-section {
+                padding: 60px 30px 100px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .cookie-banner {
+                padding: 20px 30px;
+            }
+
+            .cookie-content {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+
+            .cookie-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn-cookie {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="loader-wrapper">
+            <div class="loader-logo-frame">
+                <div class="loader-corners">
+                    <div class="corner corner-tl"></div>
+                    <div class="corner corner-tr"></div>
+                    <div class="corner corner-bl"></div>
+                    <div class="corner corner-br"></div>
+                </div>
+                <div class="loader-logo">
+                    <img src="Primary logo Yellow.png" alt="M87">
+                </div>
+            </div>
+            <p class="loader-title">M87</p>
+            <p class="loader-subtitle">Talent Qatar</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-logo">
+            <a href="design-05-luxury-bright-yellow.html">
+                <img src="Primary logo Yellow.png" alt="M87">
+            </a>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="design-05-luxury-bright-yellow.html#about">About Us</a></li>
+            <li><a href="design-05-luxury-bright-yellow-application.html" class="btn-apply">Become A Talent</a></li>
+            <li><a href="design-05-luxury-bright-yellow.html#contact">Contact Us</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-ornament">✦ ✦ ✦</p>
+            <h1 class="hero-title">BECOME A TALENT - M87</h1>
+            <p class="hero-subtitle">Start Your Journey</p>
+            <div class="hero-divider"></div>
+        </div>
+    </section>
+
+    <!-- Application Form -->
+    <section class="application-section">
+        <div class="form-container" id="formContainer">
+            <div class="form-intro">
+                <p>
+                    Take the first step towards an extraordinary career. Complete the application below and our team will review your submission. We seek individuals who don't just aspire to greatness—they embody it.
+                </p>
+            </div>
+
+            <form id="talentApplication" novalidate>
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h2 class="form-section-title">Personal Information</h2>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="Enter your first name" required>
+                            <p class="error-message">Please enter your first name</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Enter your last name" required>
+                            <p class="error-message">Please enter your last name</p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" placeholder="your.email@example.com" required>
+                            <p class="error-message">Please enter a valid email address</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+974 XXXX XXXX" required>
+                            <p class="error-message">Please enter your phone number</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="dateOfBirth">Date of Birth *</label>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                        <p class="error-message">Please enter your date of birth</p>
+                    </div>
+                </div>
+
+                <!-- Talent Information -->
+                <div class="form-section">
+                    <h2 class="form-section-title">Talent Information</h2>
+                    <div class="form-group">
+                        <label for="talentCategory">Talent Category *</label>
+                        <select id="talentCategory" name="talentCategory" required>
+                            <option value="">Select your category</option>
+                            <option value="actor">Actor/Actress</option>
+                            <option value="model">Model</option>
+                            <option value="singer">Singer</option>
+                            <option value="dancer">Dancer</option>
+                            <option value="presenter">TV Presenter</option>
+                            <option value="voice-artist">Voice Artist</option>
+                            <option value="content-creator">Content Creator</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <p class="error-message">Please select your talent category</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="experience">Years of Experience *</label>
+                        <select id="experience" name="experience" required>
+                            <option value="">Select your experience</option>
+                            <option value="0-1">0-1 years (Beginner)</option>
+                            <option value="1-3">1-3 years</option>
+                            <option value="3-5">3-5 years</option>
+                            <option value="5-10">5-10 years</option>
+                            <option value="10+">10+ years (Professional)</option>
+                        </select>
+                        <p class="error-message">Please select your years of experience</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="bio">Bio *</label>
+                        <textarea id="bio" name="bio" placeholder="Tell us about yourself, your background, and what makes you unique..." required></textarea>
+                        <p class="error-message">Please tell us about yourself</p>
+                    </div>
+                </div>
+
+                <!-- Social Media -->
+                <div class="form-section">
+                    <h2 class="form-section-title">Social Media & Portfolio</h2>
+                    <div class="form-group">
+                        <label for="instagram">Instagram Profile</label>
+                        <input type="url" id="instagram" name="instagram" placeholder="https://instagram.com/yourprofile">
+                    </div>
+                    <div class="form-group">
+                        <label for="youtube">YouTube Channel</label>
+                        <input type="url" id="youtube" name="youtube" placeholder="https://youtube.com/yourchannel">
+                    </div>
+                    <div class="form-group">
+                        <label for="portfolio">Portfolio URL</label>
+                        <input type="url" id="portfolio" name="portfolio" placeholder="https://yourportfolio.com">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h2 class="form-section-title">Photos</h2>
+                    <div class="upload-section">
+                        <p class="upload-instruction">Share your best photos with us. Upload up to 6 images that showcase your unique look and talent.</p>
+
+                        <div class="upload-guidance">
+                            <span class="upload-icon">✦</span>
+                            <p class="upload-guidance-text">
+                                <strong>Please submit clear, natural photos that represent you accurately.</strong><br>
+                                Avoid filters, heavy editing, or altered images. This helps us assess your potential and present you in the best possible way.
+                            </p>
+                        </div>
+
+                        <div class="file-input-wrapper">
+                            <input type="file" id="imageUpload" name="images" accept="image/*" multiple>
+                            <div class="file-input-button">
+                                Click to Upload Images<br>
+                                <span style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 5px; display: block;">Max 6 images</span>
+                            </div>
+                        </div>
+
+                        <div class="image-count" id="imageCount">0 / 6 images selected</div>
+                        <div class="preview-area" id="previewArea"></div>
+
+                        <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 20px; line-height: 1.6;">
+                            You can upload up to 6 images. If you'd like to share more, please email them to
+                            <a href="mailto:info@m87.com" style="color: var(--accent);">info@m87.com</a>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Additional Information -->
+                <div class="form-section">
+                    <h2 class="form-section-title">Additional Information</h2>
+                    <div class="form-group">
+                        <label for="whyJoin">Why do you want to join M87? *</label>
+                        <textarea id="whyJoin" name="whyJoin" placeholder="Share your motivation and what you hope to achieve..." required></textarea>
+                        <p class="error-message">Please tell us why you want to join M87</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="specialSkills">Special Skills</label>
+                        <textarea id="specialSkills" name="specialSkills" placeholder="Languages, instruments, certifications, or any other special talents..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Terms -->
+                <div class="form-section">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">
+                            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>. I understand that my application will be reviewed by the M87 team and I may be contacted for further information. *
+                        </label>
+                    </div>
+                    <p class="error-message" id="termsError">You must agree to the terms to continue</p>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="btn-submit">Submit Application</button>
+            </form>
+        </div>
+
+        <!-- Success Message -->
+        <div class="success-message" id="successMessage">
+            <div class="success-icon">✓</div>
+            <h2 class="success-title">Application Submitted</h2>
+            <p class="success-text">
+                Thank you for your interest in joining M87 Talent Qatar. Your application has been successfully submitted and our team will review it carefully. If your profile matches our requirements, we will contact you within 7-10 business days.
+            </p>
+            <a href="design-05-luxury-bright-yellow.html" class="btn-back">Back to Home</a>
+        </div>
+    </section>
+
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h4>Cookies & Privacy</h4>
+                <p>We use cookies to enhance your experience and analyze site usage. By continuing to browse, you consent to our use of cookies.</p>
+            </div>
+            <div class="cookie-actions">
+                <button class="btn-cookie btn-cookie-accept" id="acceptCookies">Accept All</button>
+                <button class="btn-cookie btn-cookie-decline" id="declineCookies">Decline</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Loading screen
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 2500);
+        });
+
+        // Navbar scroll effect - text fades out on scroll, stays visible on hover
+        const nav = document.getElementById('navbar');
+        let scrollTimeout;
+        let isHovering = false;
+        
+        nav.addEventListener('mouseenter', () => {
+            isHovering = true;
+            nav.style.opacity = '1';
+        });
+        
+        nav.addEventListener('mouseleave', () => {
+            isHovering = false;
+            scrollTimeout = setTimeout(() => {
+                nav.style.opacity = '0';
+            }, 150);
+        });
+        
+        window.addEventListener('scroll', () => {
+            nav.style.opacity = '1';
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                if (!isHovering) {
+                    nav.style.opacity = '0';
+                }
+            }, 150);
+        });        // Image Upload Functionality
+        const imageUpload = document.getElementById('imageUpload');
+        const previewArea = document.getElementById('previewArea');
+        const imageCount = document.getElementById('imageCount');
+        let uploadedImages = [];
+        const MAX_IMAGES = 6;
+
+        imageUpload.addEventListener('change', function(e) {
+            const files = Array.from(e.target.files);
+
+            if (uploadedImages.length + files.length > MAX_IMAGES) {
+                alert(`You can only upload a maximum of ${MAX_IMAGES} images. Please remove some images first.`);
+                return;
+            }
+
+            files.forEach(file => {
+                if (!file.type.startsWith('image/')) {
+                    alert('Please select only image files.');
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(loadEvent) {
+                    const imageData = loadEvent.target.result;
+                    uploadedImages.push(imageData);
+                    addPreview(imageData, uploadedImages.length - 1);
+                    updateImageCount();
+                };
+                reader.readAsDataURL(file);
+            });
+
+            this.value = '';
+        });
+
+        function addPreview(imageSrc, index) {
+            const previewItem = document.createElement('div');
+            previewItem.className = 'preview-item';
+            previewItem.innerHTML = `
+                <img src="${imageSrc}" alt="Preview ${index + 1}">
+                <button type="button" class="preview-remove" onclick="removeImage(${index})">×</button>
+            `;
+            previewArea.appendChild(previewItem);
+        }
+
+        function removeImage(index) {
+            uploadedImages.splice(index, 1);
+            previewArea.innerHTML = '';
+            uploadedImages.forEach((img, imageIndex) => {
+                addPreview(img, imageIndex);
+            });
+            updateImageCount();
+        }
+
+        function updateImageCount() {
+            const count = uploadedImages.length;
+            imageCount.textContent = `${count} / ${MAX_IMAGES} images selected`;
+
+            if (count >= MAX_IMAGES) {
+                imageCount.classList.add('warning');
+            } else {
+                imageCount.classList.remove('warning');
+            }
+        }
+
+        // Form Validation
+        const form = document.getElementById('talentApplication');
+        const formContainer = document.getElementById('formContainer');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            let isValid = true;
+            let firstError = null;
+
+            // Clear all errors
+            document.querySelectorAll('.form-group').forEach(group => {
+                group.classList.remove('error');
+            });
+            document.getElementById('termsError').style.display = 'none';
+
+            // Required fields
+            const requiredFields = [
+                'firstName',
+                'lastName',
+                'email',
+                'phone',
+                'dateOfBirth',
+                'talentCategory',
+                'experience',
+                'bio',
+                'whyJoin'
+            ];
+
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                const value = field.value.trim();
+
+                if (!value) {
+                    isValid = false;
+                    field.closest('.form-group').classList.add('error');
+                    if (!firstError) firstError = field;
+                }
+
+                // Email validation
+                if (fieldId === 'email' && value) {
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(value)) {
+                        isValid = false;
+                        field.closest('.form-group').classList.add('error');
+                        if (!firstError) firstError = field;
+                    }
+                }
+            });
+
+            // Terms checkbox
+            const termsCheckbox = document.getElementById('terms');
+            if (!termsCheckbox.checked) {
+                isValid = false;
+                document.getElementById('termsError').style.display = 'block';
+                if (!firstError) firstError = termsCheckbox;
+            }
+
+            if (!isValid) {
+                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstError.focus();
+            } else {
+                // Show success message
+                formContainer.style.display = 'none';
+                successMessage.classList.add('show');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+
+        // Real-time validation removal
+        document.querySelectorAll('.form-group input, .form-group select, .form-group textarea').forEach(field => {
+            field.addEventListener('input', function() {
+                this.closest('.form-group').classList.remove('error');
+            });
+        });
+
+        document.getElementById('terms').addEventListener('change', function() {
+            if (this.checked) {
+                document.getElementById('termsError').style.display = 'none';
+            }
+        });
+
+        // Cookie Banner
+        const cookieBanner = document.getElementById('cookieBanner');
+        const acceptBtn = document.getElementById('acceptCookies');
+        const declineBtn = document.getElementById('declineCookies');
+
+        // Check if user has already made a choice
+        if (!localStorage.getItem('cookieConsent')) {
+            setTimeout(() => {
+                cookieBanner.classList.add('show');
+            }, 2000);
+        }
+
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
+            cookieBanner.classList.remove('show');
+            cookieBanner.classList.add('hide');
+        });
+
+        declineBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'declined');
+            cookieBanner.classList.remove('show');
+            cookieBanner.classList.add('hide');
+        });
+    </script>
+</body>
+</html>
